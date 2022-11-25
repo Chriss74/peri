@@ -129,7 +129,7 @@
     }
 
     function peri(myVoices){
-        console.log(myVoices)
+     
         const synth = window.speechSynthesis;
         var msg1 = new SpeechSynthesisUtterance()
         var msg2 = new SpeechSynthesisUtterance()
@@ -167,7 +167,7 @@
         let i=0
         msg1.onstart=(event)=>{
         let intervalId1=setInterval(function(){
-            txt=texten1+texten2
+            txt=msg1.text+msg2.text
             res.innerHTML+=txt[i]
             i++
             if (i==txt.length){
@@ -180,10 +180,10 @@
         let img=new Image()
         img.src="robotPeri.jpg"
         photo.appendChild(img)
-        synth.cancel()
         }
         synth.speak(msg1)
         synth.speak(msg2)
+        synth.cancel()
     
     }
 
