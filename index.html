@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Test if you are a robot</title>
+<meta charset="UTF-8">
+<meta name="author" content="Crista">
+<style>
+    body{
+        font-family: Tahoma, Verdana, sans-serif; 
+        margin:50px;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    #name{
+
+        margin: auto;
+        width: 50%;
+        padding: 5px;
+        margin: auto;
+        width: 50%;
+        padding: 10px;
+        
+    }
+    
+    #captcha{
+        height:160px;
+        border: 3px solid black;
+        margin: auto;
+        width: 50%;
+        padding: 10px;
+        
+    }
+    #fname{
+        height:50px;
+        width:200px;
+        font-size:large;
+        padding: 10px;
+        margin-bottom: 30px;
+    }
+    #chkbox{
+        height:60%;
+        width:60%;
+    }
+    #txt{
+        font-size: 150%;
+    }
+
+    #res{
+        height:160px;
+        width:100%;
+        padding:10px
+        
+    }
+    #check{
+        height: 25%;
+        width: 25%
+    }
+   
+    img{
+        width:100%;
+      }
+</style>
+
+</head>
+<body>
+    <h1>ROBOTO-TRON</h1>
+    <div><h4>Το πατενταρισμένο μας ROBOTO-TRON TM κοιτάζει βαθειά μέσa στα τρίσβαθα της ψυχής (αν υπάρχει...), με τη δύναμη προηγμένης νανοτεχνολογίας klp και θα λέει με aκρίβεια εάν και σε ποιο ποσ0στό πρόκειται γιa ένα κανονικός άνθρωπος ή μία ψυχρή αλγοριθμική μηχανή χωρίς αισθήματα. Γράψε το πλήρες βαφτιστ1κό όνομα και τσέκαρε το checkbox παρακάτω.</h4></div><br>
+    <div id="name"><form name="myForm">
+    <input type="text" size="100" maxlength="50" id="fname" name="fname" value="Ονομα"> 
+    </form></div>
+    <table id="captcha">
+    <th id="check"> <input type="checkbox" id="chkbox"></th>
+    <th id="txt"> <p >Είμαι ρομποτ?</p></th>
+    <th id="img"><img  src="RecaptchaLogo.svg" alt=""></th>
+    </table>
+   
+    <div id="res"></div>
+ 
+    <div id="photo"></div>
+    
+
+    <script>
+    let chkbox=document.getElementById("chkbox") 
+    chkbox.addEventListener("click", onclick)
+    let photo=document.getElementById("photo")
+    let res=document.getElementById("res")
+    let name=document.getElementById("fname")
+    const synth = window.speechSynthesis;
+    var candy = new Audio('Candy.mp3');
+    var xfiles=new Audio('xfiles.mp3')
+        
+    function onclick(e){
+        e.stopPropagation
+        photo.innerHTML=""
+        res.innerHTML="" 
+
+        if (chkbox.checked==true){
+            checked()
+        }else{
+            synth.cancel()
+            photo.innerHTML=""
+            res.innerHTML=""
+            candy.pause()
+            xfiles.pause()
+            res.style.backgroundColor="white"
+            res.style.color="black"
+            name.value="Ονομα"
+            
+            
+        }
+    }
+        
+    function checked(){ 
+        if (name.value=="Ονομα" || name.value==""){
+            alert("Δεν έχει δώσει όνομα")
+            chkbox.checked=false
+            name.value="Ονομα"
+        }else{
+            let myName=fname.value.toLowerCase()
+            if (myName.includes('perik') || myName.includes("περικ") || myName=="peri" || myName=="περι"){
+                lang()
+            }else if (myName.includes('chrys') || myName.includes("χρύσα") || myName.includes("chriso") || myName.includes("chrisa")|| myName.includes("chrissa") || myName.includes("chryssa")||myName.includes("χρυσο")) {
+                crista()
+            }else{
+                others()
+            }
+        }
+    }
+    
+    function lang(){
+        let obj=[]
+        let strm=""
+        console.log(synth.getVoices())
+          /** get w3c voices **/
+        if ('speechSynthesis' in window) {
+            let voices = synth.getVoices();
+            if (voices.length) {
+              for (let i=0; i<voices.length;i++){
+                obj.push(voices[i].lang) 
+                strm+= voices[i].lang+" "
+              }
+        peri(strm)
+            } 
+        }
+        
+    }
+
+    function peri(myVoices){
+        xfiles.load()
+        xfiles.play()
+        res.style.backgroundColor="black"
+        res.style.color="white"
+        res.style.fontfamily="Courier New, Courier, monospace"
+        var msg1 = new SpeechSynthesisUtterance()
+        var msg2 = new SpeechSynthesisUtterance()
+        let texten1=`Gia su robot praktora tria koma deka tesera, Tomeas planiti Gi. Fagame ton kozmo na se vroume.Na epistrepsis amesa sti vasi gia instructions.`
+        let texten2=`Su stelnoume ke mia foto apo tin patrida gia na thimithis ta palia`
+        let textgr1=`Γεια σου ρομπότ πράκτορα 3,14, τομέας πλανήτη Γη. Φαγαμε τον κόσμο να σε βρούμε. Να επιστρέψεις άμεσα στη βάση για οδηγίες.`
+        let textgr2=`Σου στέλνουμε και μία φώτο από την πατρίδα για να θυμηθεις τα παλια`
+        let textplain1=`Hello robot agent 3.14, Earth Division. We searched everywhere to find you. Return immediately to the base for instructions`
+        let textplain2=`We send you a photo from our country for you to remember the good old days`
+
+
+        if (myVoices.includes("de-DE")){
+            msg1.lang='de-DE'
+            msg2.lang='de-DE'
+            msg1.text = texten1
+            msg2.text = texten2
+        }else if(myVoices.includes("ko-KR")){
+            msg1.lang='ko-KR'
+            msg2.lang='ko-KR'
+            msg1.text = texten1
+            msg2.text = texten2
+        }else if(myVoices.includes("el-GR")){
+            msg1.lang='el-GR'
+            msg2.lang='el-GR'
+            msg1.text = texten1           
+            msg2.text = texten2
+        }else {
+            msg1.lang='en-US'
+            msg2.lang='en-US'
+            msg1.text = textplain1           
+            msg2.text = textplain2
+        }
+        msg1.rate=1;
+        msg2.rate=1
+        msg1.onstart=()=>{
+        let txt=msg1.text+msg2.text
+        txt=txt.split("")
+        txt.forEach((letter,i)=>
+           setTimeout(()=>{
+            if(synth.speaking){
+                res.innerHTML+=letter}
+            },85*i)
+        )
+
+        }
+        msg2.onend= ()=>{
+        let img=new Image()
+        img.src="robotPeri.jpg"
+        photo.appendChild(img)
+        synth.cancel()
+        synth.cancel()
+        setTimeout(function() {xfiles.pause()}, 8800)
+        }
+        synth.speak(msg1)
+        synth.speak(msg2)
+}
+
+   
+
+    function crista(){
+        res.style.backgroundColor=("pink")
+        let txt=document.createElement("h2")
+        txt.innerHTML="Είσαι 100% καταπληκτικός άνθρωπος"
+        res.appendChild(txt)
+        let img=new Image()
+        img.src="Candy.jpg"
+        photo.appendChild(img)
+        candy.load()
+        candy.play()
+        
+    }
+    
+    function others(){
+        grade=Math.floor(Math.random() * 100)
+        let txt=document.createElement("h3")
+        if (grade<25){
+            txt.innerHTML="Είσαι σχεδόν 100% ρομπότ. Αν σε λένε Περικλή και είσαι ο πράκτορας 3.14, επέστρεψε αμέσως στη βάση!"
+        }
+        else if (grade<50){
+            txt.innerHTML="Πιο πολύ ρομπότ παρά άνθρωπος. Αποφάσισε κι έλα να σε προσλάβουμε."
+        }
+        else if (grade<75){
+            txt.innerHTML="Καλά τα πας, μπορείς και καλύτερα..."
+        }
+        else{
+            txt.innerHTML="Είσαι ξεκάθαρα άνθρωπος.Καλή τύχη!"
+        }
+        res.appendChild(txt)
+
+    }
+</script>
+</body>
+
+</html>
